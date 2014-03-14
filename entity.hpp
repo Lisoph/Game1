@@ -1,5 +1,6 @@
 #pragma once
 #include <Eigen/Eigen>
+#include <utility>
 
 class Entity
 {
@@ -18,7 +19,7 @@ public:
   {}
   
   Entity(Vec2 &&pos)
-  : pos(pos) // std::move maybe?
+  : pos(std::move(pos)) // std::move maybe?
   {}
   
   virtual ~Entity(void) {}
