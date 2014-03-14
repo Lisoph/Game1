@@ -9,8 +9,6 @@
 #include "keyboard.hpp"
 #include "mouse.hpp"
 
-#include <Eigen/Eigen>
-
 bool Game::Running = true;
 
 void Game::Init(void)
@@ -21,8 +19,6 @@ void Game::Init(void)
   Globals::LoadFonts();
   
   GameState::SwitchTo(GS_MainMenu::Instance());
-  
-  
 } 
 
 void Game::Update(void)

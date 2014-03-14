@@ -1,4 +1,0 @@
-Maybe dynamic text size.
-Fix vertical font spacing.
-Refactor...
-Eat cookies.
