@@ -5,6 +5,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_image.h>
 #include "gs_mainmenu.hpp"
 #include "keyboard.hpp"
 #include "mouse.hpp"
@@ -13,7 +14,8 @@ bool Game::Running = true;
 
 void Game::Init(void)
 {
-  SDL_Init(SDL_INIT_VIDEO);  
+  SDL_Init(SDL_INIT_VIDEO);
+  IMG_Init(IMG_INIT_PNG);
   TTF_Init();
   Screen::Init();
   Globals::LoadFonts();
@@ -55,9 +57,9 @@ void Game::Update(void)
 
 void Game::Draw(void)
 {
-  SDL_SetRenderDrawColor(Screen::renderer, 254, 251, 236, 255);
+  SDL_SetRenderDrawColor(Screen::Renderer, 254, 251, 236, 255);
   
-  SDL_RenderClear(Screen::renderer);
+  SDL_RenderClear(Screen::Renderer);
   
   GameState::DrawCurrent();
   Screen::Present();
@@ -68,5 +70,6 @@ void Game::Fina(void)
   Globals::CloseFonts();
   Screen::Fina();
   TTF_Quit();
+  IMG_Quit();
   SDL_Quit();
 }

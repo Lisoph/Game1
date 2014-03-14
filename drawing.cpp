@@ -99,7 +99,7 @@ void Drawing::DrawString(long x, long y, const wstring &str, TTF_Font *font, uns
       else
         SDL_SetTextureColorMod(cachedChar.texture, color >> 24, (color & 0x00FF0000) >> 16, (color & 0x0000FF00) >> 8);
       
-      SDL_RenderCopy(Screen::renderer, cachedChar.texture, nullptr, &dstRect);
+      SDL_RenderCopy(Screen::Renderer, cachedChar.texture, nullptr, &dstRect);
       xOffset += cachedChar.width;
       
       if(cachedChar.height > highestCharHeight)

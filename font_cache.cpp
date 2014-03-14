@@ -46,7 +46,7 @@ Char &FontCache::CacheChar(wchar_t chr)
   
   //SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 255, 0, 255));
   
-  Char newCachedChar = {SDL_CreateTextureFromSurface(Screen::renderer, surface), surface->w, surface->h};
+  Char newCachedChar = {SDL_CreateTextureFromSurface(Screen::Renderer, surface), surface->w, surface->h};
   SDL_FreeSurface(surface);
   
   cachedChars.push_back(std::make_pair(chr, newCachedChar));

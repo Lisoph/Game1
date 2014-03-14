@@ -1,6 +1,5 @@
 #pragma once
 #include <Eigen/Eigen>
-#include <utility>
 
 class Entity
 {
@@ -10,7 +9,9 @@ public:
 protected:
   Vec2 pos;
 public:
-  Entity(void) {};
+  Entity(void)
+  : pos(0, 0)
+  {};
   
   Entity(const Vec2 &pos)
   : pos(pos)

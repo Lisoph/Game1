@@ -3,8 +3,8 @@
 
 namespace Screen
 {
-  extern SDL_Window *window;
-  extern SDL_Renderer *renderer;
+  extern SDL_Window *Window;
+  extern SDL_Renderer *Renderer;
   
   void Init(void);
   inline void Present(void);
@@ -13,5 +13,5 @@ namespace Screen
 
 void Screen::Present(void)
 {
-  SDL_RenderPresent(renderer);
+  SDL_RenderPresent(Renderer);
 }
