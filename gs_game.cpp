@@ -6,12 +6,17 @@
 #include "globals.hpp"
 #include "screen.hpp"
 #include "resource_manager.hpp"
+#include "geometry.hpp"
 #include <SDL2/SDL.h>
 #include <Eigen/Eigen>
 #include <memory>
+#include <sstream>
+#include <string>
+#include "drawing.hpp"
 
 std::unique_ptr<Sprite> player, enemy;
-ResourceManager<int> mgrTest;
+Geometry geom;
+std::wstring debug;
 
 GS_Game::GS_Game(void)
 : GameState()
@@ -31,13 +36,22 @@ GS_Game::GS_Game(void)
   player->LoadFromFile("sprite.png");
   
   enemy.reset(new Sprite(Sprite::Vec2(128, 128)));
-  enemy->Pos() = Sprite::Vec2(300, 300);
+  enemy->Pos() = Sprite::Vec2(Globals::SCREEN_WIDTH - enemy->Size()(0) / 2, Globals::SCREEN_HEIGHT - enemy->Size()(1) / 2);
   enemy->LoadFromFile("enemy.png");
   enemy->FrameSize() = Sprite::Vec2(64, 64);
   
+  geom.AddVertex(Eigen::Vector2f(-100.0f, -100.0f));
+  geom.AddVertex(Eigen::Vector2f(120.0f, -90.0f));
+  geom.AddVertex(Eigen::Vector2f(40.0f, 30.0f));
+  geom.AddVertex(Eigen::Vector2f(-100.0f, 100.0f));
   
+  geom.AddVertexAt(Eigen::Vector2f(-50.0f, 0.0f), geom.NumVertices() - 1);
   
-  mgrTest.AddResource("myInt", new int(123));
+  const Eigen::AlignedBox2f &aabb = geom.AABB();
+  
+  std::basic_stringstream<wchar_t> wss;
+  wss << L"min(" << aabb.min()(0) << L", " << aabb.min()(1) << L"), max(" << aabb.max()(0) << L", " << aabb.max()(1) << L")\n";
+  debug = wss.str();
 }
 
 GS_Game::~GS_Game(void)
@@ -58,6 +72,13 @@ void GS_Game::Update(void)
   
   player->Update();
   enemy->Update();
+  
+  if(enemy->Rot() > 360.0f)
+    enemy->Rot() -= 360.0f;
+  enemy->Rot() += 2.0f * Globals::DeltaTime;
+  
+  geom.Pos() = player->Pos();
+  geom.Update();
 }
 
 void GS_Game::Draw(void)
@@ -66,9 +87,14 @@ void GS_Game::Draw(void)
   enemy->Draw();
   
   Eigen::Vector2f dir = enemy->Pos() - player->Pos();
+  
   dir.normalize();
   Eigen::Vector2f point = (dir * 200.0f) + player->Pos();
   
   SDL_SetRenderDrawColor(Screen::Renderer, 255, 0, 0, 255);
-  SDL_RenderDrawLine(Screen::Renderer, (int)player->Pos()(0), (int)player->Pos()(1), (int)point(0), (int)point(1));
+  SDL_RenderDrawLine(Screen::Renderer, static_cast<int>(player->Pos()(0)), static_cast<int>(player->Pos()(1)), static_cast<int>(point(0)), static_cast<int>(point(1)));
+  
+  geom.Draw();
+  
+  Drawing::DrawString(5, 5, debug, Globals::Font_Default, 0, true);
 }

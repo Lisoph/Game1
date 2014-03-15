@@ -32,9 +32,9 @@ int main(int argc, char **argv)
     
     timeEnd = SDL_GetTicks();
     frameTime = timeEnd - timeStart;
-    if(frameTime < FPMS) SDL_Delay(FPMS - frameTime);
-    
-    
+    if(frameTime < FPMS) SDL_Delay(FPMS - frameTime); // Maybe replace SDL_GetTicks & SDL_Delay with Boost functions -> Probably better time resolution.
+   
+     
     if(uclock() > ftOffset + Sec(1))
     {
       // std::cout << "FPS: " << frames << '\n';

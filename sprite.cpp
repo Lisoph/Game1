@@ -27,8 +27,8 @@ Sprite::Sprite(const Sprite::Vec2 &size)
 void Sprite::Draw(void)
 {
   SDL_Rect srcRect = {static_cast<int>(frameOffset(0)), static_cast<int>(frameOffset(1)), static_cast<int>(frameSize(0)), static_cast<int>(frameSize(1))};
-  SDL_Rect dstRect = {static_cast<int>(pos(0)), static_cast<int>(pos(1)), static_cast<int>(size(0)), static_cast<int>(size(1))};
-  // SDL_RenderCopy(Screen::Renderer, texture.get(), &srcRect, &dstRect);
+  // SDL_Rect dstRect = {static_cast<int>(pos(0)), static_cast<int>(pos(1)), static_cast<int>(size(0)), static_cast<int>(size(1))}; // Old origin
+  SDL_Rect dstRect = {static_cast<int>(pos(0) - (size(0) / 2)), static_cast<int>(pos(1) - (size(1) / 2)), static_cast<int>(size(0)), static_cast<int>(size(1))};
   SDL_RenderCopyEx(Screen::Renderer, texture.get(), &srcRect, &dstRect, rot, nullptr, SDL_FLIP_NONE);
 }
 
@@ -64,5 +64,6 @@ bool Sprite::LoadFromFile(const std::string &file)
 
 void Sprite::SetFrame(int frame)
 {
+  // Placeholder code
   frameOffset(0) = frameSize(0) * frame;
 }

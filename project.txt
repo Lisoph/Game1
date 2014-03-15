@@ -55,7 +55,7 @@
 
 
 
-
+Maybe replace SDL_GetTicks & SDL_Delay with Boost functions -> Probably better time resolution.
 
 
 Good songs:
