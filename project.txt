@@ -58,10 +58,7 @@
 
 
 
-
-Important: The move constructors are completely messed up, since they call copy constructors. Fix later.
-
-
 Good songs:
 Colors 2.0 - Samba do Coracao (Radio Edit) - Brand New Day
 Stephanie Sante - Cosmic Diva - Link With Me
+Moodswings - Spiritual High

@@ -29,7 +29,7 @@ public:
   const std::wstring &Text(void) const { return text; }
   void SetText(const std::wstring &text);
   
-  void Update(void) override {};
+  void Update(void) override;
   void Draw(void) override;
 protected:
   void CalculateSize(void);

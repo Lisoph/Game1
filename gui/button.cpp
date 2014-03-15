@@ -9,7 +9,6 @@ Button::Button(void)
   label(L"<no text>"),
   clickedEvents()
 {
-  label.SetColor(255, 0, 0);
   size = label.Size();
 }
 
@@ -18,7 +17,6 @@ Button::Button(const std::wstring &txt)
   label(txt),
   clickedEvents()
 {
-  label.SetColor(255, 0, 0);
   size = label.Size();
 }
 
@@ -37,10 +35,14 @@ void Button::Update(void)
   }
   else
     label.SetColor(color);
+  
+  UpdateChildren();
 }
 
 void Button::Draw(void)
 {
   label.Pos() = pos;
   label.Draw();
+  
+  DrawChildren();
 }

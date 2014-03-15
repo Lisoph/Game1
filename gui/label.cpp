@@ -20,9 +20,15 @@ Label::Label(const std::wstring &str)
   CalculateSize();
 }
 
+void Label::Update(void)
+{
+  UpdateChildren();
+}
+
 void Label::Draw(void)
 {
   Drawing::DrawString(pos(0), pos(1), text, font, color);
+  DrawChildren();
 }
 
 void Label::SetText(const std::wstring &_text)

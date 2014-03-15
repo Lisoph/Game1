@@ -15,6 +15,7 @@
 #include <memory>
 #include "sprite.hpp"
 #include "menu2.hpp"
+#include "game.hpp"
 
 typedef std::basic_stringstream<wchar_t> wstringstream;
 
@@ -38,6 +39,10 @@ GS_MainMenu::GS_MainMenu(void)
       spr.SetFrame(1);
     else if(key == SDLK_k)
       spr.SetFrame(0);
+    else if(key == SDLK_ESCAPE)
+    {
+      Game::Running = false;
+    }
   };
   
   label.reset(new Gui::Label(L"Label test"));

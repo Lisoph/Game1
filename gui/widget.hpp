@@ -36,4 +36,7 @@ public:
   Widget *Child(size_t index) const { return (index >= NumChildren() || index < 0) ? nullptr : children[index]; }
   void AddChild(Widget *child);
   void RemoveChild(Widget *child);
+  
+  void UpdateChildren(void);
+  void DrawChildren(void);
 };

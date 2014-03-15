@@ -49,9 +49,6 @@ void Game::Update(void)
       Running = false;
   }
   
-  if(Keyboard::IsKeyPressed(SDLK_ESCAPE))
-    Running = false;
-  
   GameState::UpdateCurrent();
 }
 

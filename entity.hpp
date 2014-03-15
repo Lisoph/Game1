@@ -19,7 +19,7 @@ public:
   {}
   
   Entity(Vec2 &&pos)
-  : pos(std::move(pos)) // std::move maybe?
+  : pos(std::move(pos))
   {}
   
   virtual ~Entity(void) {}
