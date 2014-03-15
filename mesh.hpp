@@ -3,14 +3,14 @@
 #include <vector>
 #include "entity.hpp"
 
-class Geometry: public Entity
+class Mesh: public Entity
 {
   protected:
     std::vector<Eigen::Vector2f> vertices;
     Eigen::AlignedBox2f aabb;
   public:
-    Geometry(void);
-    Geometry(const Entity::Vec2 &pos);
+    Mesh(void);
+    Mesh(const Entity::Vec2 &pos);
     
     size_t NumVertices(void) { return vertices.size(); }
     const Eigen::Vector2f &Vertex(size_t index);

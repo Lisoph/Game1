@@ -1,28 +1,28 @@
-#include "geometry.hpp"
+#include "mesh.hpp"
 #include "screen.hpp"
 #include <stdexcept>
 #include <SDL2/SDL.h>
 
-Geometry::Geometry(void)
+Mesh::Mesh(void)
 : Entity(), vertices()
 {}
 
-Geometry::Geometry(const Entity::Vec2 &pos)
+Mesh::Mesh(const Entity::Vec2 &pos)
 : Entity(pos), vertices()
 {}
 
-const Eigen::Vector2f &Geometry::Vertex(size_t index)
+const Eigen::Vector2f &Mesh::Vertex(size_t index)
 {
   if(index < 0 || index > NumVertices())
-    throw std::runtime_error("You're outta range, dude! ~ Sincerly geometry.cpp");
+    throw std::runtime_error("You're outta range, dude! ~ Sincerly mesh.cpp");
   
   return vertices[index];
 }
 
-void Geometry::AddVertexAt(const Eigen::Vector2f &vert, size_t index)
+void Mesh::AddVertexAt(const Eigen::Vector2f &vert, size_t index)
 {
   if(index < 0)
-    throw std::runtime_error("You're outta range, dude! ~ Sincerly geometry.cpp");
+    throw std::runtime_error("You're outta range, dude! ~ Sincerly mesh.cpp");
   
   if(index > NumVertices())
     index = NumVertices() - 1;
@@ -31,16 +31,16 @@ void Geometry::AddVertexAt(const Eigen::Vector2f &vert, size_t index)
   CalculateAABB();
 }
 
-void Geometry::RemoveVertex(size_t index)
+void Mesh::RemoveVertex(size_t index)
 {
   if(index < 0 || index > NumVertices())
-    throw std::runtime_error("You're outta range, dude! ~ Sincerly geometry.cpp");
+    throw std::runtime_error("You're outta range, dude! ~ Sincerly mesh.cpp");
   
   vertices.erase(vertices.begin() + index);
   CalculateAABB();
 }
 
-void Geometry::RemoveVertex(const Eigen::Vector2f &vert)
+void Mesh::RemoveVertex(const Eigen::Vector2f &vert)
 {
   for(auto it = vertices.begin(); it != vertices.end(); ++it)
   {
@@ -51,7 +51,7 @@ void Geometry::RemoveVertex(const Eigen::Vector2f &vert)
   CalculateAABB();
 }
 
-void Geometry::Draw(void)
+void Mesh::Draw(void)
 {
   // DANGER: Placeholder code!
   
@@ -69,7 +69,7 @@ void Geometry::Draw(void)
   SDL_RenderDrawLine(Screen::Renderer, vec(0) + pos(0), vec(1) + pos(1), vec2(0) + pos(0), vec2(1) + pos(1));
 }
 
-void Geometry::CalculateAABB(void)
+void Mesh::CalculateAABB(void)
 {
   float left = 0.0f, right = 0.0f, top = 0.0f, bottom = 0.0f;
   

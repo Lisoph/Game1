@@ -6,7 +6,7 @@
 #include "globals.hpp"
 #include "screen.hpp"
 #include "resource_manager.hpp"
-#include "geometry.hpp"
+#include "mesh.hpp"
 #include <SDL2/SDL.h>
 #include <Eigen/Eigen>
 #include <memory>
@@ -15,7 +15,7 @@
 #include "drawing.hpp"
 
 std::unique_ptr<Sprite> player, enemy;
-Geometry geom;
+Mesh mesh;
 std::wstring debug;
 
 GS_Game::GS_Game(void)
@@ -40,14 +40,14 @@ GS_Game::GS_Game(void)
   enemy->LoadFromFile("enemy.png");
   enemy->FrameSize() = Sprite::Vec2(64, 64);
   
-  geom.AddVertex(Eigen::Vector2f(-100.0f, -100.0f));
-  geom.AddVertex(Eigen::Vector2f(120.0f, -90.0f));
-  geom.AddVertex(Eigen::Vector2f(40.0f, 30.0f));
-  geom.AddVertex(Eigen::Vector2f(-100.0f, 100.0f));
+  mesh.AddVertex(Eigen::Vector2f(-100.0f, -100.0f));
+  mesh.AddVertex(Eigen::Vector2f(120.0f, -90.0f));
+  mesh.AddVertex(Eigen::Vector2f(40.0f, 30.0f));
+  mesh.AddVertex(Eigen::Vector2f(-100.0f, 100.0f));
   
-  geom.AddVertexAt(Eigen::Vector2f(-50.0f, 0.0f), geom.NumVertices() - 1);
+  mesh.AddVertexAt(Eigen::Vector2f(-50.0f, 0.0f), mesh.NumVertices() - 1);
   
-  const Eigen::AlignedBox2f &aabb = geom.AABB();
+  const Eigen::AlignedBox2f &aabb = mesh.AABB();
   
   std::basic_stringstream<wchar_t> wss;
   wss << L"min(" << aabb.min()(0) << L", " << aabb.min()(1) << L"), max(" << aabb.max()(0) << L", " << aabb.max()(1) << L")\n";
@@ -77,8 +77,8 @@ void GS_Game::Update(void)
     enemy->Rot() -= 360.0f;
   enemy->Rot() += 2.0f * Globals::DeltaTime;
   
-  geom.Pos() = player->Pos();
-  geom.Update();
+  mesh.Pos() = player->Pos();
+  mesh.Update();
 }
 
 void GS_Game::Draw(void)
@@ -94,7 +94,7 @@ void GS_Game::Draw(void)
   SDL_SetRenderDrawColor(Screen::Renderer, 255, 0, 0, 255);
   SDL_RenderDrawLine(Screen::Renderer, static_cast<int>(player->Pos()(0)), static_cast<int>(player->Pos()(1)), static_cast<int>(point(0)), static_cast<int>(point(1)));
   
-  geom.Draw();
+  mesh.Draw();
   
   Drawing::DrawString(5, 5, debug, Globals::Font_Default, 0, true);
 }
