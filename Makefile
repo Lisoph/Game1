@@ -69,7 +69,7 @@ MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_image-2.0.
 MY_LIBS  += -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
 
 # The pre-processor options used by the cpp (man cpp for more).
-CPPFLAGS  = -Wall -std=c++11
+CPPFLAGS  = -Wall -std=c++11 -Wfatal-errors
 
 # The options used in linking as well as in any direct use of ld.
 LDFLAGS   =
@@ -117,6 +117,7 @@ CTAGSFLAGS =
 
 ## Stable Section: usually no need to be changed. But you can add more.
 ##==========================================================================
+#SHELL    = C:/Windows/System32/cmd.exe
 SHELL   = C:/msys/1.0/bin/sh.exe
 #SHELL    = /bin/sh.exe
 EMPTY   =

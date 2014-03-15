@@ -1,0 +1,57 @@
+template <typename ResourceType, typename Deleter>
+std::hash<std::string> ResourceManager<ResourceType, Deleter>::strHash;
+
+template <typename ResourceType, typename Deleter>
+ResourceManager<ResourceType, Deleter>::ResourceManager(void)
+: resources()
+{}
+
+template <typename ResourceType, typename Deleter>
+ResourceManager<ResourceType, Deleter>::~ResourceManager(void)
+{
+  Deleter deleter;
+  
+  for(auto it = resources.begin(); it != resources.end(); ++it)
+    deleter(it->second);
+}
+
+template <typename ResourceType, typename Deleter>
+bool ResourceManager<ResourceType, Deleter>::AddResource(const std::string &name, ResourceType *resource)
+{
+  size_t nameHash = strHash(name);
+  
+  for(auto it = resources.begin(); it != resources.end(); ++it)
+  {
+    if(it->first == nameHash)
+      return false;
+  }
+  
+  resources.push_back(std::make_pair(nameHash, resource));
+  return true;
+}
+
+template <typename ResourceType, typename Deleter>
+void ResourceManager<ResourceType, Deleter>::RemoveResource(const std::string &name)
+{
+  size_t nameHash = strHash(name);
+  
+  for(auto it = resources.begin(); it != resources.end(); ++it)
+  {
+    if(it->first == nameHash)
+      resources.erase(it);
+  }
+}
+
+template <typename ResourceType, typename Deleter>
+ResourceType *ResourceManager<ResourceType, Deleter>::Resource(const std::string &name)
+{
+  size_t nameHash = strHash(name);
+  
+  for(auto it = resources.begin(); it != resources.end(); ++it)
+  {
+    if(it->first == nameHash)
+      return it->second;
+  }
+  
+  return nullptr;
+}

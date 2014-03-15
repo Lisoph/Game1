@@ -4,6 +4,8 @@
 #include "globals.hpp"
 #include "gs_mainmenu.hpp"
 #include "gs_game.hpp"
+#include "keyboard.hpp"
+#include "gs_mainmenu.hpp"
 #include <memory>
 
 std::unique_ptr<Gui::Button> backButton, gameButton;
@@ -11,6 +13,16 @@ std::unique_ptr<Gui::Button> backButton, gameButton;
 GS_Menu2::GS_Menu2(void)
 : GameState()
 {
+  Keyboard::KeyPressedEvents += [](int key)
+  {
+    if(!GS_Menu2::Instance().IsActive()) return;
+    
+    if(key == SDLK_ESCAPE)
+    {
+      GameState::SwitchTo(GS_MainMenu::Instance());
+    }
+  };
+  
   backButton.reset(new Gui::Button(L"Main menu"));
   backButton->Pos()(1) = Globals::SCREEN_HEIGHT - backButton->Size()(1);
   backButton->ClickedEvents() += [](void) -> void { GameState::SwitchTo(GS_MainMenu::Instance()); };
