@@ -38,11 +38,11 @@ static FontCache *CachedFont(TTF_Font *font)
 static std::vector<std::wstring> SplitString(const std::wstring &str, const wchar_t splitToken)
 {
   std::vector<std::wstring> lines;
-  unsigned long offset = 0;
+  unsigned int offset = 0;
   
   for(;;)
   {
-    unsigned long begin = str.find(splitToken, offset + 1);
+    int begin = str.find(splitToken, offset + 1);
     if(begin == std::wstring::npos)
     {
       // if(!str.empty())
@@ -85,7 +85,7 @@ void Drawing::DrawString(int x, int y, const wstring &str, TTF_Font *font, unsig
     
   FontCache *cachedFont = CachedFont(font);
   
-  long xOffset = 0, yOffset = 0;
+  int xOffset = 0, yOffset = 0;
     
   std::vector<std::wstring> lines = SplitString(str, L'\n');
   
@@ -93,7 +93,7 @@ void Drawing::DrawString(int x, int y, const wstring &str, TTF_Font *font, unsig
   {
     std::wstring &line = *strIt;
     // long highestCharHeight = 0;
-    long highestCharHeight = TTF_FontHeight(font);
+    int highestCharHeight = TTF_FontHeight(font);
     
     for(auto lineIt = line.begin(); lineIt != line.end(); ++lineIt)
     {

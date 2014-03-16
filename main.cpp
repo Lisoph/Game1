@@ -6,8 +6,7 @@
 
 typedef unsigned long ulong;
 
-constexpr ulong Sec(ulong sec) { return sec * CLOCKS_PER_SEC; }
-inline ulong uclock() { return static_cast<ulong>(clock()); }
+constexpr ulong Sec(ulong sec) { return sec * 1000; }
 
 int main(int argc, char **argv)
 {
@@ -15,11 +14,11 @@ int main(int argc, char **argv)
   constexpr ulong FPMS  = 1000 / Globals::FPS;
   constexpr float DFPMS = 1000.0f / Globals::DFPS;
   
-  ulong frames = 0;
-  ulong ftOffset = uclock();
-  
   Game::Init();
   oldTime = SDL_GetTicks();
+  
+  ulong frames = 0;
+  ulong ftOffset = SDL_GetTicks();
   
   while(Game::Running)
   {
@@ -34,15 +33,15 @@ int main(int argc, char **argv)
     frameTime = timeEnd - timeStart;
     if(frameTime < FPMS) SDL_Delay(FPMS - frameTime); // Maybe replace SDL_GetTicks & SDL_Delay with Boost functions -> Probably better time resolution.
    
-     
-    if(uclock() > ftOffset + Sec(1))
+    
+    if(timeEnd > ftOffset + 1000)
     {
-      // std::cout << "FPS: " << frames << '\n';
       Globals::fps = frames;
       frames = 0;
-      ftOffset = uclock();
+      ftOffset = timeEnd;
     }
-    else ++frames;
+    else
+      ++frames;
   }
   
   Game::Fina();

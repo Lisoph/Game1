@@ -10,7 +10,7 @@ typedef struct SDL_Texture TextureType;
 struct Char
 {
   TextureType *texture;
-  long width, height;
+  int width, height;
 };
 
 class FontCache

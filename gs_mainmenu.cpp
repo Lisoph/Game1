@@ -104,7 +104,7 @@ void GS_MainMenu::Draw(void)
   
   wstringstream wss;
   
-  wss << L"FPS: " << Globals::fps;
+  wss << L"FPS: " << Globals::fps << L"\nDelta time: " << Globals::DeltaTime;
   
   Drawing::DrawString(static_cast<int>(tpx), static_cast<int>(tpy), wss.str(), Globals::Font_Default, 0xcc884400);
   Drawing::DrawString(0, 0, status, Globals::Font_Default, 0xcc884400, true);

@@ -42,7 +42,7 @@ template <typename ResourceType, typename Deleter>
 void ResourceManager<ResourceType, Deleter>::RemoveResource(const std::string &name)
 {
   size_t nameHash = strHash(name);
-  std::vector<std::string>::iterator it2 = 0;
+  std::vector<std::string>::iterator it2 = resourceNames.begin();
   
   for(auto it = resources.begin(); it != resources.end(); ++it, ++it2)
   {
