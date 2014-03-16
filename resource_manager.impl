@@ -1,18 +1,25 @@
+#include <stdexcept>
+#include <iostream>
+
 template <typename ResourceType, typename Deleter>
 std::hash<std::string> ResourceManager<ResourceType, Deleter>::strHash;
 
 template <typename ResourceType, typename Deleter>
 ResourceManager<ResourceType, Deleter>::ResourceManager(void)
-: resources()
+: resources(), resourceNames()
 {}
 
 template <typename ResourceType, typename Deleter>
 ResourceManager<ResourceType, Deleter>::~ResourceManager(void)
 {
   Deleter deleter;
+  size_t i = 0;
   
-  for(auto it = resources.begin(); it != resources.end(); ++it)
+  for(auto it = resources.begin(); it != resources.end(); ++it, ++i)
+  {
+    std::cout << "Deleting resource " << resourceNames[i] << '\n';
     deleter(it->second);
+  }
 }
 
 template <typename ResourceType, typename Deleter>
@@ -27,6 +34,7 @@ bool ResourceManager<ResourceType, Deleter>::AddResource(const std::string &name
   }
   
   resources.push_back(std::make_pair(nameHash, resource));
+  resourceNames.push_back(name);
   return true;
 }
 
@@ -34,11 +42,15 @@ template <typename ResourceType, typename Deleter>
 void ResourceManager<ResourceType, Deleter>::RemoveResource(const std::string &name)
 {
   size_t nameHash = strHash(name);
+  std::vector<std::string>::iterator it2 = 0;
   
-  for(auto it = resources.begin(); it != resources.end(); ++it)
+  for(auto it = resources.begin(); it != resources.end(); ++it, ++it2)
   {
     if(it->first == nameHash)
+    {
       resources.erase(it);
+      resourceNames.erase(it2);
+    }
   }
 }
 
@@ -54,4 +66,13 @@ ResourceType *ResourceManager<ResourceType, Deleter>::Resource(const std::string
   }
   
   return nullptr;
+}
+
+template <typename ResourceType, typename Deleter>
+ResourceType *ResourceManager<ResourceType, Deleter>::Resource(size_t index)
+{
+  if(index < 0 || index >= NumResources())
+    throw std::runtime_error("You're outta range, dude! ~ Sincerly resource_manager.impl");
+  
+  return resources[index].second;
 }

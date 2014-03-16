@@ -1,7 +1,5 @@
 #pragma once
 
-// class irrklang::ISoundEngine;
-
 namespace irrklang { class ISoundEngine; }
 
 namespace Audio

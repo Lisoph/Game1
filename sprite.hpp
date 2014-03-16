@@ -18,7 +18,6 @@ class Sprite: public Entity
   public:
     typedef ResourceManager<SDL_Texture, _TextureDeleter> RMType;
   protected:
-    // static ResourceManager<SDL_Texture, TextureDeleter> textureManager;
     static RMType textureManager;
     
     std::unique_ptr<SDL_Texture, void(*)(SDL_Texture*)> texture;

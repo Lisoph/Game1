@@ -19,6 +19,12 @@ const Eigen::Vector2f &Mesh::Vertex(size_t index)
   return vertices[index];
 }
 
+void Mesh::AddVertex(const Eigen::Vector2f &vert)
+{
+  vertices.push_back(vert);
+  CalculateAABB();
+}
+
 void Mesh::AddVertexAt(const Eigen::Vector2f &vert, size_t index)
 {
   if(index < 0)

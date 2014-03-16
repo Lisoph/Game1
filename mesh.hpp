@@ -15,7 +15,7 @@ class Mesh: public Entity
     size_t NumVertices(void) { return vertices.size(); }
     const Eigen::Vector2f &Vertex(size_t index);
     
-    void AddVertex(const Eigen::Vector2f &vert) { vertices.push_back(vert); CalculateAABB(); }
+    void AddVertex(const Eigen::Vector2f &vert);
     void AddVertexAt(const Eigen::Vector2f &vert, size_t index);
     
     void RemoveVertex(size_t index);

@@ -71,7 +71,7 @@ MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/Irrklang/lib/Mi
 MY_LIBS  += -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lirrKlang
 
 # The pre-processor options used by the cpp (man cpp for more).
-CPPFLAGS  = -Wall -std=c++11 -Wfatal-errors
+CPPFLAGS  = -Wall -std=c++11
 
 # The options used in linking as well as in any direct use of ld.
 LDFLAGS   =

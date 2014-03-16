@@ -2,7 +2,6 @@
 #include "vox.hpp"
 #include <irrklang/irrklang.h>
 #include <stdexcept>
-#include <iostream>
 
 irrklang::ISoundEngine *Audio::Engine = nullptr;
 
@@ -16,6 +15,5 @@ void Audio::Init(void)
 void Audio::Fina(void)
 {
   Vox::Stop();
-  std::cout << "Dropping engine...\n";
   Engine->drop();
 }
