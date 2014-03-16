@@ -9,6 +9,7 @@
 #include "gs_mainmenu.hpp"
 #include "keyboard.hpp"
 #include "mouse.hpp"
+#include "audio.hpp"
 
 bool Game::Running = true;
 
@@ -17,6 +18,8 @@ void Game::Init(void)
   SDL_Init(SDL_INIT_VIDEO);
   IMG_Init(IMG_INIT_PNG);
   TTF_Init();
+  
+  Audio::Init();
   Screen::Init();
   Globals::LoadFonts();
   
@@ -54,7 +57,8 @@ void Game::Update(void)
 
 void Game::Draw(void)
 {
-  SDL_SetRenderDrawColor(Screen::Renderer, 254, 251, 236, 255);
+  // SDL_SetRenderDrawColor(Screen::Renderer, 254, 251, 236, 255);
+  SDL_SetRenderDrawColor(Screen::Renderer, 41, 45, 48, 255);
   
   SDL_RenderClear(Screen::Renderer);
   
@@ -66,6 +70,8 @@ void Game::Fina(void)
 {
   Globals::CloseFonts();
   Screen::Fina();
+  Audio::Fina();
+  
   TTF_Quit();
   IMG_Quit();
   SDL_Quit();

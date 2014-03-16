@@ -13,10 +13,13 @@
 #include <sstream>
 #include <string>
 #include "drawing.hpp"
+#include "vox.hpp"
+#include "gui/button.hpp"
 
 std::unique_ptr<Sprite> player, enemy;
 Mesh mesh;
 std::wstring debug;
+std::unique_ptr<Gui::Button> btn1;
 
 GS_Game::GS_Game(void)
 : GameState()
@@ -52,6 +55,10 @@ GS_Game::GS_Game(void)
   std::basic_stringstream<wchar_t> wss;
   wss << L"min(" << aabb.min()(0) << L", " << aabb.min()(1) << L"), max(" << aabb.max()(0) << L", " << aabb.max()(1) << L")\n";
   debug = wss.str();
+  
+  btn1.reset(new Gui::Button(L"Click me"));
+  btn1->Pos() = Gui::Button::Vec2(5, 200);
+  btn1->ClickedEvents() += [](void) -> void { if(!Vox::IsPlaying()) Vox::Speak("Hello yankee, accelerating accelerator safety. Alert, alien is not ok. Please die."); };
 }
 
 GS_Game::~GS_Game(void)
@@ -79,6 +86,8 @@ void GS_Game::Update(void)
   
   mesh.Pos() = player->Pos();
   mesh.Update();
+  
+  btn1->Update();
 }
 
 void GS_Game::Draw(void)
@@ -95,6 +104,7 @@ void GS_Game::Draw(void)
   SDL_RenderDrawLine(Screen::Renderer, static_cast<int>(player->Pos()(0)), static_cast<int>(player->Pos()(1)), static_cast<int>(point(0)), static_cast<int>(point(1)));
   
   mesh.Draw();
+  btn1->Draw();
   
   Drawing::DrawString(5, 5, debug, Globals::Font_Default, 0, true);
 }

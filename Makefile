@@ -61,12 +61,14 @@ MY_CFLAGS = -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2-2.0.0/incl
 MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_ttf-2.0.12/include"
 MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_image-2.0.0/include"
 MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/Eigen"
+MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/Irrklang/include"
 
 # The linker options.
 MY_LIBS   = -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2-2.0.0/lib/MinGW/x86"
 MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_ttf-2.0.12/lib/MinGW/x86"
 MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_image-2.0.0/lib/MinGW/x86"
-MY_LIBS  += -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf
+MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/Irrklang/lib/MinGW"
+MY_LIBS  += -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lirrKlang
 
 # The pre-processor options used by the cpp (man cpp for more).
 CPPFLAGS  = -Wall -std=c++11 -Wfatal-errors
