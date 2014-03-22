@@ -42,7 +42,7 @@ static std::vector<std::wstring> SplitString(const std::wstring &str, const wcha
   
   for(;;)
   {
-    int begin = str.find(splitToken, offset + 1);
+    unsigned int begin = str.find(splitToken, offset + 1);
     if(begin == std::wstring::npos)
     {
       // if(!str.empty())

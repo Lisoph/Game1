@@ -62,16 +62,22 @@ MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_ttf-2.0.1
 MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_image-2.0.0/include"
 MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/Eigen"
 MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/Irrklang/include"
+MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/utf8"
+MY_CFLAGS += -I"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/xsl/include"
+MY_CFLAGS += -I"C:\Boost/include/boost-1_55" # WINDOWS ONLY!
 
 # The linker options.
 MY_LIBS   = -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2-2.0.0/lib/MinGW/x86"
 MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_ttf-2.0.12/lib/MinGW/x86"
 MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/SDL2_image-2.0.0/lib/MinGW/x86"
 MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/libs/Irrklang/lib/MinGW"
-MY_LIBS  += -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lirrKlang
+MY_LIBS  += -L"C:/Users/daniel.hauser/Dropbox/Hausers Lokal/xsl/lib/MinGW"
+MY_LIBS  += -L"C:/Boost/lib/MinGW" # WINDOWS ONLY!
+MY_LIBS  += -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lirrKlang -lxsl
+MY_LIBS  += -lws2_32 -lboost_system-mgw48-mt-1_55 -lboost_thread-mgw48-mt-1_55 -lboost_chrono-mgw48-mt-1_55 # WINDOWS ONLY
 
 # The pre-processor options used by the cpp (man cpp for more).
-CPPFLAGS  = -Wall -std=c++11
+CPPFLAGS  = -std=c++11 -Wfatal-errors
 
 # The options used in linking as well as in any direct use of ld.
 LDFLAGS   =

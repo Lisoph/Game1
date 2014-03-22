@@ -10,18 +10,23 @@
 #include "keyboard.hpp"
 #include "mouse.hpp"
 #include "audio.hpp"
+#include <xsl.h>
 
 bool Game::Running = true;
 
 void Game::Init(void)
 {
   SDL_Init(SDL_INIT_VIDEO);
+  SDL_StartTextInput();
+  
   IMG_Init(IMG_INIT_PNG);
   TTF_Init();
   
   Audio::Init();
   Screen::Init();
   Globals::LoadFonts();
+  
+  xsl_init();
   
   GameState::SwitchTo(GS_MainMenu::Instance());
 } 
@@ -47,6 +52,14 @@ void Game::Update(void)
     {
       Mouse::HandleMouseEvent(static_cast<Mouse::Button>(event.button.button), (event.type == SDL_MOUSEBUTTONDOWN) ? Mouse::MouseEventType::MouseButtonDown : Mouse::MouseEventType::MouseButtonUp);
     }
+    else if(event.type == SDL_TEXTINPUT)
+    {
+      Keyboard::HandleTextInputEvent(std::string(event.text.text));
+    }
+    else if(event.type == SDL_TEXTEDITING)
+    {
+      Keyboard::HandleTextEditEvent(event.edit.start, event.edit.length, std::string(event.edit.text));
+    }
     
     else if(event.type == SDL_QUIT)
       Running = false;
@@ -57,7 +70,6 @@ void Game::Update(void)
 
 void Game::Draw(void)
 {
-  // SDL_SetRenderDrawColor(Screen::Renderer, 254, 251, 236, 255);
   SDL_SetRenderDrawColor(Screen::Renderer, 41, 45, 48, 255);
   
   SDL_RenderClear(Screen::Renderer);
@@ -68,11 +80,15 @@ void Game::Draw(void)
 
 void Game::Fina(void)
 {
+  xsl_fina();
+  
   Globals::CloseFonts();
   Screen::Fina();
   Audio::Fina();
   
   TTF_Quit();
   IMG_Quit();
+  
+  SDL_StopTextInput();
   SDL_Quit();
 }

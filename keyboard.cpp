@@ -1,11 +1,14 @@
 #include "keyboard.hpp"
 #include <SDL2/SDL.h>
 #include <map>
+#include <iostream>
 
 static std::map<int, bool> cachedKeys;
 static std::map<int, bool> cachedPressedKeys;
 
 Event<int> Keyboard::KeyPressedEvents;
+Event<const std::string&> Keyboard::TextInputEvents;
+Event<const Keyboard::TextEditEventData&> Keyboard::TextEditEvents;
 
 void Keyboard::ClearPressedKeys(void)
 {
@@ -21,6 +24,16 @@ void Keyboard::HandleKeyEvent(int key, Keyboard::KeyEventType keType)
     cachedPressedKeys[key] = true;
     KeyPressedEvents(key);
   }
+}
+
+void Keyboard::HandleTextInputEvent(const std::string &input)
+{
+  TextInputEvents(input);
+}
+
+void Keyboard::HandleTextEditEvent(int start, int length, const std::string &text)
+{
+  TextEditEvents({start, length, text});
 }
 
 bool Keyboard::IsKeyDown(int key)
